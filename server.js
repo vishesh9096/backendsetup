@@ -19,7 +19,7 @@ mongoose.connect(mongo_uri,{
 });
 
 app.use(express.urlencoded({extended:true}))
-http.createServer(app)
+const server = http.createServer(app)
 
 const store = new mongodbSession({
     uri:mongo_uri,
@@ -32,6 +32,9 @@ app.use(session({
     store:store,
 }))
 
+server.listen(()=>{
+  console.log("hello from server")
+})
 app.get("/",(req,res)=>{
     req.session.isAuth = true,
     console.log(req.session);
