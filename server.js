@@ -7,17 +7,19 @@ const mongoose = require("mongoose")
 require('dotenv').config()
 const userModel = require("./models/Users")
 const bodyParser = require('body-parser');
+const http = require('http')
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 const mongo_uri = process.env.mongo_uri
 mongoose.connect(mongo_uri,{
-    useNewUrlParser : true,
-    useUnifiedTopology: true,
+  useNewUrlParser : true,
+  useUnifiedTopology: true,
 }).then(res=>{
-    console.log("DB connected");
+  console.log("DB connected");
 });
 
 app.use(express.urlencoded({extended:true}))
+http.createServer(app)
 
 const store = new mongodbSession({
     uri:mongo_uri,
